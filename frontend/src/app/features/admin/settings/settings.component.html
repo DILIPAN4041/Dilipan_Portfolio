@@ -1,0 +1,283 @@
+<div class="settings-container">
+  <div class="header">
+    <h1>Site Settings</h1>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading()" class="loading">
+    <mat-icon>settings</mat-icon>
+    <p>Loading settings...</p>
+  </div>
+
+  <!-- Settings Tabs -->
+  <mat-tab-group *ngIf="!loading()">
+    <!-- General Settings Tab -->
+    <mat-tab label="General">
+      <div class="tab-content">
+        <form (ngSubmit)="saveSettings()">
+          <!-- General Settings -->
+          <mat-card class="settings-section">
+            <mat-card-header>
+              <mat-card-title>
+                <mat-icon>info</mat-icon>
+                General Information
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Site Name</mat-label>
+                <input matInput [(ngModel)]="settings.siteName" name="siteName" placeholder="My Portfolio">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Tagline</mat-label>
+                <input matInput [(ngModel)]="settings.tagline" name="tagline" placeholder="Full-Stack Developer">
+              </mat-form-field>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- SEO Settings -->
+          <mat-card class="settings-section">
+            <mat-card-header>
+              <mat-card-title>
+                <mat-icon>search</mat-icon>
+                SEO Settings
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Default Meta Description</mat-label>
+                <textarea matInput [(ngModel)]="settings.metaDescription" name="metaDescription" rows="3"
+                  placeholder="A brief description of your portfolio..."></textarea>
+                <mat-hint>Recommended: 150-160 characters</mat-hint>
+              </mat-form-field>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Save Button -->
+          <div class="actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="saving()">
+              <mat-icon>{{ saving() ? 'hourglass_empty' : 'save' }}</mat-icon>
+              {{ saving() ? 'Saving...' : 'Save General Settings' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </mat-tab>
+
+    <!-- Section Visibility Tab -->
+    <mat-tab label="Section Visibility">
+      <div class="tab-content">
+        <mat-card class="settings-section">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>visibility</mat-icon>
+              Control Section Visibility
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="section-description">Toggle which sections appear on your public portfolio site.</p>
+
+            <div class="visibility-controls">
+              <div class="visibility-item">
+                <div class="item-info">
+                  <mat-icon>person</mat-icon>
+                  <span>About Section</span>
+                </div>
+                <mat-slide-toggle [(ngModel)]="sectionsVisibility.about" color="primary">
+                </mat-slide-toggle>
+              </div>
+
+              <div class="visibility-item">
+                <div class="item-info">
+                  <mat-icon>code</mat-icon>
+                  <span>Skills Section</span>
+                </div>
+                <mat-slide-toggle [(ngModel)]="sectionsVisibility.skills" color="primary">
+                </mat-slide-toggle>
+              </div>
+
+              <div class="visibility-item">
+                <div class="item-info">
+                  <mat-icon>work</mat-icon>
+                  <span>Projects Section</span>
+                </div>
+                <mat-slide-toggle [(ngModel)]="sectionsVisibility.projects" color="primary">
+                </mat-slide-toggle>
+              </div>
+
+              <div class="visibility-item">
+                <div class="item-info">
+                  <mat-icon>business_center</mat-icon>
+                  <span>Experience Section</span>
+                </div>
+                <mat-slide-toggle [(ngModel)]="sectionsVisibility.experience" color="primary">
+                </mat-slide-toggle>
+              </div>
+
+              <div class="visibility-item">
+                <div class="item-info">
+                  <mat-icon>article</mat-icon>
+                  <span>Blogs Section</span>
+                </div>
+                <mat-slide-toggle [(ngModel)]="sectionsVisibility.blogs" color="primary">
+                </mat-slide-toggle>
+              </div>
+
+              <div class="visibility-item">
+                <div class="item-info">
+                  <mat-icon>star</mat-icon>
+                  <span>Fun Facts Section</span>
+                </div>
+                <mat-slide-toggle [(ngModel)]="sectionsVisibility.funfacts" color="primary">
+                </mat-slide-toggle>
+              </div>
+
+              <div class="visibility-item">
+                <div class="item-info">
+                  <mat-icon>contact_mail</mat-icon>
+                  <span>Contact Section</span>
+                </div>
+                <mat-slide-toggle [(ngModel)]="sectionsVisibility.contact" color="primary">
+                </mat-slide-toggle>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Save Button -->
+        <div class="actions">
+          <button mat-raised-button color="primary" (click)="saveVisibility()" [disabled]="saving()">
+            <mat-icon>{{ saving() ? 'hourglass_empty' : 'save' }}</mat-icon>
+            {{ saving() ? 'Saving...' : 'Save Visibility Settings' }}
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Hero Content Tab -->
+    <mat-tab label="Hero Content">
+      <div class="tab-content">
+        <mat-card class="settings-section">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>text_fields</mat-icon>
+              Edit Hero Section Content
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="section-description">Customize the hero section text for each page.</p>
+
+            <!-- Home Page -->
+            <div class="hero-section">
+              <h3><mat-icon>home</mat-icon> Home Page</h3>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Hero Title</mat-label>
+                <textarea matInput [(ngModel)]="heroContent.home.title" rows="2"></textarea>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Hero Description</mat-label>
+                <textarea matInput [(ngModel)]="heroContent.home.description" rows="3"></textarea>
+              </mat-form-field>
+            </div>
+
+            <!-- About Page -->
+            <div class="hero-section">
+              <h3><mat-icon>person</mat-icon> About Page</h3>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Page Title</mat-label>
+                <input matInput [(ngModel)]="heroContent.about.title">
+              </mat-form-field>
+            </div>
+
+            <!-- Skills Page -->
+            <div class="hero-section">
+              <h3><mat-icon>code</mat-icon> Skills Page</h3>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Page Title</mat-label>
+                <input matInput [(ngModel)]="heroContent.skills.title">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Hero Description</mat-label>
+                <textarea matInput [(ngModel)]="heroContent.skills.description" rows="2"></textarea>
+              </mat-form-field>
+            </div>
+
+            <!-- Projects Page -->
+            <div class="hero-section">
+              <h3><mat-icon>work</mat-icon> Projects Page</h3>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Page Title</mat-label>
+                <input matInput [(ngModel)]="heroContent.projects.title">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Hero Description</mat-label>
+                <textarea matInput [(ngModel)]="heroContent.projects.description" rows="2"></textarea>
+              </mat-form-field>
+            </div>
+
+            <!-- Experience Page -->
+            <div class="hero-section">
+              <h3><mat-icon>business_center</mat-icon> Experience Page</h3>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Page Title</mat-label>
+                <input matInput [(ngModel)]="heroContent.experience.title">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Hero Description</mat-label>
+                <textarea matInput [(ngModel)]="heroContent.experience.description" rows="2"></textarea>
+              </mat-form-field>
+            </div>
+
+            <!-- Blogs Page -->
+            <div class="hero-section">
+              <h3><mat-icon>article</mat-icon> Blogs Page</h3>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Page Title</mat-label>
+                <input matInput [(ngModel)]="heroContent.blogs.title">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Hero Description</mat-label>
+                <textarea matInput [(ngModel)]="heroContent.blogs.description" rows="2"></textarea>
+              </mat-form-field>
+            </div>
+
+            <!-- Fun Facts Page -->
+            <div class="hero-section">
+              <h3><mat-icon>star</mat-icon> Fun Facts Page</h3>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Page Title</mat-label>
+                <input matInput [(ngModel)]="heroContent.funfacts.title">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Hero Description</mat-label>
+                <textarea matInput [(ngModel)]="heroContent.funfacts.description" rows="2"></textarea>
+              </mat-form-field>
+            </div>
+
+            <!-- Contact Page -->
+            <div class="hero-section">
+              <h3><mat-icon>contact_mail</mat-icon> Contact Page</h3>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Page Title</mat-label>
+                <input matInput [(ngModel)]="heroContent.contact.title">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Hero Description</mat-label>
+                <textarea matInput [(ngModel)]="heroContent.contact.description" rows="2"></textarea>
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Save Button -->
+        <div class="actions">
+          <button mat-raised-button color="primary" (click)="saveHeroContent()" [disabled]="saving()">
+            <mat-icon>{{ saving() ? 'hourglass_empty' : 'save' }}</mat-icon>
+            {{ saving() ? 'Saving...' : 'Save Hero Content' }}
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

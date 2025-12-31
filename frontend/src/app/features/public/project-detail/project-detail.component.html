@@ -1,0 +1,98 @@
+<div class="project-detail-page" *ngIf="!loading() && project()">
+    <!-- Header -->
+    <header class="project-header">
+        <div class="header-container">
+            <a routerLink="/projects" class="back-link">
+                <mat-icon>arrow_back</mat-icon>
+                Back to Projects
+            </a>
+
+            <h1 class="project-title">{{ project().title }}</h1>
+            <p class="project-description">{{ project().description }}</p>
+
+            <div class="project-actions">
+                <a *ngIf="project().demoUrl" [href]="project().demoUrl" target="_blank" class="btn-modern btn-gradient">
+                    <mat-icon>open_in_new</mat-icon>
+                    Live Demo
+                </a>
+                <a *ngIf="project().codeUrl" [href]="project().codeUrl" target="_blank" class="btn-modern btn-outline">
+                    <mat-icon>code</mat-icon>
+                    View Code
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Project Image -->
+    <section class="project-image-section">
+        <div class="image-container">
+            <img [src]="project().imageUrl" [alt]="project().title">
+        </div>
+    </section>
+
+    <!-- Project Details -->
+    <section class="project-details">
+        <div class="details-container">
+            <!-- Overview -->
+            <div class="detail-section">
+                <h2 class="section-title">Overview</h2>
+                <p class="section-content">{{ project().longDescription || project().description }}</p>
+            </div>
+
+            <!-- Tech Stack -->
+            <div class="detail-section">
+                <h2 class="section-title">Technologies Used</h2>
+                <div class="tech-stack">
+                    <span *ngFor="let tech of project().techStack" class="tech-badge-large">
+                        {{ tech }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Category -->
+            <div class="detail-section" *ngIf="project().category">
+                <h2 class="section-title">Category</h2>
+                <span class="category-badge">{{ project().category }}</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Projects -->
+    <section class="related-section" *ngIf="relatedProjects().length > 0">
+        <div class="section-container">
+            <h2 class="section-title">Related Projects</h2>
+
+            <div class="related-grid">
+                <article *ngFor="let relatedProject of relatedProjects()" class="related-card">
+                    <div class="related-image">
+                        <img [src]="relatedProject.imageUrl" [alt]="relatedProject.title">
+                    </div>
+                    <div class="related-content">
+                        <h3 class="related-title">{{ relatedProject.title }}</h3>
+                        <p class="related-description">{{ relatedProject.description }}</p>
+                        <a [routerLink]="['/projects', relatedProject._id]" class="view-link">
+                            View Project
+                            <mat-icon>arrow_forward</mat-icon>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Loading State -->
+<div *ngIf="loading()" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading project...</p>
+</div>
+
+<!-- Not Found -->
+<div *ngIf="!loading() && !project()" class="empty-state">
+    <mat-icon>work_outline</mat-icon>
+    <p>Project not found</p>
+    <a routerLink="/projects" class="btn-modern btn-gradient">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Projects
+    </a>
+</div>

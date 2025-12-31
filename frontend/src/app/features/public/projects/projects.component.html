@@ -1,0 +1,125 @@
+<div class="projects-page">
+    <!-- Header Section -->
+    <section class="projects-header gradient-mesh-animated">
+        <div class="header-container">
+            <div class="header-content">
+                <h1 class="page-title">
+                    {{ heroContent.title }}
+                </h1>
+                <p class="page-subtitle">
+                    {{ heroContent.description }}
+                </p>
+            </div>
+            <div class="header-illustration">
+                <div class="animated-projects">
+                    <div class="projects-character">
+                        <img src="/assets/images/projects-hero.png" alt="Developer Building Projects"
+                            class="character-img">
+                    </div>
+                    <div class="code-snippet snippet-1">&lt;div&gt;</div>
+                    <div class="code-snippet snippet-2">function()</div>
+                    <div class="code-snippet snippet-3">&#123; &#125;</div>
+                    <div class="project-badge badge-1">🚀</div>
+                    <div class="project-badge badge-2">⚡</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search & Filter Section -->
+    <section class="filter-section">
+        <div class="section-container">
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <mat-icon>search</mat-icon>
+                <input type="text" placeholder="Search projects..." [(ngModel)]="searchQuery"
+                    (ngModelChange)="searchQuery.set($event)">
+            </div>
+
+            <!-- Technology Filters -->
+            <div class="tech-filters">
+                <button *ngFor="let tech of allTechnologies().slice(0, 15)" [class.active]="selectedTech() === tech"
+                    (click)="selectTech(tech)" class="tech-chip">
+                    {{ tech }}
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="projects-section">
+        <div class="section-container">
+            <!-- Loading State -->
+            <div *ngIf="loading()" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading projects...</p>
+            </div>
+
+            <!-- Projects Grid -->
+            <div *ngIf="!loading() && displayedProjects().length > 0" class="projects-grid">
+                <article *ngFor="let project of displayedProjects(); let i = index" class="project-card"
+                    [style.animation-delay]="(i * 0.1) + 's'">
+
+                    <!-- Project Image -->
+                    <div class="project-image">
+                        <img [src]="project.imageUrl" [alt]="project.title">
+                        <div class="project-overlay">
+                            <a [routerLink]="['/projects', project._id]" class="btn-view">
+                                <mat-icon>visibility</mat-icon>
+                                View Project
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project Content -->
+                    <div class="project-content">
+                        <!-- Category Badge -->
+                        <span class="category-badge">{{ project.category || 'Web' }}</span>
+
+                        <h3 class="project-title">{{ project.title }}</h3>
+                        <p class="project-description">{{ project.description }}</p>
+
+                        <!-- Tech Stack -->
+                        <div class="project-tech">
+                            <span *ngFor="let tech of project.techStack?.slice(0, 4)" class="tech-badge">
+                                {{ tech }}
+                            </span>
+                            <span *ngIf="project.techStack?.length > 4" class="tech-badge more">
+                                +{{ project.techStack.length - 4 }}
+                            </span>
+                        </div>
+
+                        <!-- Project Links -->
+                        <div class="project-links">
+                            <a *ngIf="project.demoUrl" [href]="project.demoUrl" target="_blank" class="project-link">
+                                <mat-icon>open_in_new</mat-icon>
+                                Live Demo
+                            </a>
+                            <a *ngIf="project.codeUrl" [href]="project.codeUrl" target="_blank" class="project-link">
+                                <mat-icon>code</mat-icon>
+                                Source Code
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Load More Button -->
+            <div *ngIf="!loading() && hasMore()" class="load-more-container">
+                <button (click)="loadMore()" class="btn-modern btn-gradient">
+                    <mat-icon>expand_more</mat-icon>
+                    Load More Projects
+                </button>
+            </div>
+
+            <!-- Empty State -->
+            <div *ngIf="!loading() && displayedProjects().length === 0" class="empty-state">
+                <mat-icon>work_outline</mat-icon>
+                <p>No projects found matching your criteria</p>
+                <button (click)="selectTech('All'); searchQuery.set('')" class="btn-modern btn-outline">
+                    Clear Filters
+                </button>
+            </div>
+        </div>
+    </section>
+</div>

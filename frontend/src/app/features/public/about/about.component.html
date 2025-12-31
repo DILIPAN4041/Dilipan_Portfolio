@@ -1,0 +1,136 @@
+﻿<div class="about-page" *ngIf="!loading()">
+    <!-- Hero Section -->
+    <section class="about-hero gradient-mesh-animated">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="page-title">
+                    About <span class="gradient-text">Me</span>
+                </h1>
+                <p class="hero-description" *ngIf="profile()">
+                    {{ profile().bio }}
+                </p>
+            </div>
+            <div class="hero-image">
+                <div class="animated-illustration">
+                    <!-- Developer Character -->
+                    <div class="developer-character">
+                        <img src="/assets/images/about-developer.png" alt="Developer Character" class="character-img">
+                    </div>
+
+                    <!-- Code Window -->
+                    <div class="code-window">
+                        <div class="window-header">
+                            <span class="dot dot-red"></span>
+                            <span class="dot dot-yellow"></span>
+                            <span class="dot dot-green"></span>
+                        </div>
+                        <div class="code-content">
+                            <div class="code-line"><span class="keyword">const</span> developer = &#123;</div>
+                            <div class="code-line"> <span class="property">name</span>: <span
+                                    class="string">'Dilipan'</span>,</div>
+                            <div class="code-line"> <span class="property">passion</span>: <span
+                                    class="string">'Coding'</span>,</div>
+                            <div class="code-line"> <span class="property">skills</span>: [<span
+                                    class="string">'Angular'</span>, <span class="string">'Node.js'</span>]</div>
+                            <div class="code-line">&#125;;</div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Code Symbols -->
+                    <div class="float-symbol symbol-1">&lt;/&gt;</div>
+                    <div class="float-symbol symbol-2">&#123; &#125;</div>
+                    <div class="float-symbol symbol-3">[ ]</div>
+                    <div class="float-symbol symbol-4">( )</div>
+
+                    <!-- Tech Icons -->
+                    <div class="tech-badge badge-1">💻</div>
+                    <div class="tech-badge badge-2">⚡</div>
+                    <div class="tech-badge badge-3">🚀</div>
+
+                    <!-- Animated Lines -->
+                    <div class="connect-line line-1"></div>
+                    <div class="connect-line line-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy-section">
+        <div class="section-container">
+            <h2 class="section-title">My Philosophy & Approach</h2>
+            <div class="philosophy-content">
+                <p>{{ philosophy.paragraph1 }}</p>
+                <p>{{ philosophy.paragraph2 }}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Timeline -->
+    <section class="journey-section">
+        <div class="section-container">
+            <h2 class="section-title">My Journey & Milestones</h2>
+
+            <div class="timeline">
+                <div *ngFor="let milestone of milestones; let i = index" class="timeline-item"
+                    [style.animation-delay]="(i * 0.2) + 's'">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-icon">
+                            <mat-icon>{{ milestone.icon }}</mat-icon>
+                        </div>
+                        <div class="timeline-info">
+                            <span class="timeline-year">{{ milestone.year }}</span>
+                            <h3 class="timeline-title">{{ milestone.title }}</h3>
+                            <p class="timeline-description">{{ milestone.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests Section -->
+    <section class="interests-section">
+        <div class="section-container">
+            <h2 class="section-title">Beyond the Code: My Interests</h2>
+
+            <div class="interests-grid">
+                <div *ngFor="let interest of interests; let i = index" class="interest-card"
+                    [style.animation-delay]="(i * 0.1) + 's'">
+                    <div class="interest-icon">
+                        <mat-icon>{{ interest.icon }}</mat-icon>
+                    </div>
+                    <h3 class="interest-title">{{ interest.title }}</h3>
+                    <p class="interest-description">{{ interest.description }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="section-container">
+            <h2 class="cta-title">Ready to Work Together?</h2>
+            <p class="cta-description">
+                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+            </p>
+            <div class="cta-actions">
+                <a routerLink="/contact" class="btn-modern btn-gradient">
+                    <mat-icon>email</mat-icon>
+                    Get In Touch
+                </a>
+                <a routerLink="/projects" class="btn-modern btn-outline">
+                    <mat-icon>work</mat-icon>
+                    View My Work
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Loading State -->
+<div *ngIf="loading()" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+</div>

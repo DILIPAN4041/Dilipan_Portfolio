@@ -1,0 +1,48 @@
+<nav class="navbar">
+    <div class="navbar-container">
+        <!-- Logo -->
+        <a routerLink="/" class="navbar-logo">
+            <div class="logo-icon">
+                <mat-icon>code</mat-icon>
+            </div>
+            <span class="logo-text">Dilipan</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <div class="navbar-links desktop-only">
+            <a *ngFor="let link of navLinks()" [routerLink]="link.path" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: link.path === '/'}" class="nav-link">
+                {{ link.label }}
+            </a>
+        </div>
+
+        <!-- Right Side Actions -->
+        <div class="navbar-actions">
+            <app-theme-toggle></app-theme-toggle>
+            <a routerLink="/login" class="btn-admin desktop-only">
+                <mat-icon>admin_panel_settings</mat-icon>
+                <span>Admin</span>
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn mobile-only" (click)="toggleMobileMenu()">
+                <mat-icon>{{ mobileMenuOpen() ? 'close' : 'menu' }}</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" [class.open]="mobileMenuOpen()">
+        <div class="mobile-menu-links">
+            <a *ngFor="let link of navLinks()" [routerLink]="link.path" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: link.path === '/'}" (click)="closeMobileMenu()"
+                class="mobile-nav-link">
+                {{ link.label }}
+            </a>
+            <a routerLink="/login" class="mobile-nav-link" (click)="closeMobileMenu()">
+                <mat-icon>admin_panel_settings</mat-icon>
+                Admin Login
+            </a>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,74 @@
+<div class="fun-facts-page">
+    <!-- Header -->
+    <section class="fun-facts-header gradient-mesh-animated">
+        <div class="header-container">
+            <div class="header-content">
+                <h1 class="page-title">{{ heroContent.title }}</h1>
+                <p class="page-subtitle">{{ heroContent.description }}</p>
+            </div>
+            <div class="header-illustration">
+                <div class="animated-funfacts">
+                    <div class="funfacts-character">
+                        <img src="/assets/images/funfacts-hero.png" alt="Fun Facts" class="character-img">
+                    </div>
+                    <div class="fun-emoji emoji-1">🎉</div>
+                    <div class="fun-emoji emoji-2">✨</div>
+                    <div class="fun-emoji emoji-3">🌈</div>
+                    <div class="fun-emoji emoji-4">🎯</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="statistics-section">
+        <div class="section-container">
+            <h2 class="section-title">By the Numbers</h2>
+
+            <div class="statistics-grid">
+                <div *ngFor="let stat of statistics; let i = index" class="stat-card"
+                    [style.animation-delay]="(i * 0.1) + 's'">
+                    <div class="stat-icon">
+                        <mat-icon>{{ stat.icon }}</mat-icon>
+                    </div>
+                    <div class="stat-value">
+                        <span #counter [attr.data-target]="stat.value">0</span>{{ stat.suffix }}
+                    </div>
+                    <div class="stat-label">{{ stat.label }}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fun Facts Grid -->
+    <section class="facts-section">
+        <div class="section-container">
+            <h2 class="section-title">More About My Passions</h2>
+
+            <!-- Loading State -->
+            <div *ngIf="loading()" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading fun facts...</p>
+            </div>
+
+            <!-- Facts Grid -->
+            <div *ngIf="!loading() && funFacts().length > 0" class="facts-grid">
+                <div *ngFor="let fact of funFacts(); let i = index" class="fact-card"
+                    [style.animation-delay]="(i * 0.1) + 's'">
+                    <div class="fact-icon">
+                        {{ fact.icon }}
+                    </div>
+                    <h3 class="fact-title">{{ fact.title }}</h3>
+                    <p class="fact-description">{{ fact.description }}</p>
+                    <span class="fact-category">{{ fact.category }}</span>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div *ngIf="!loading() && funFacts().length === 0" class="empty-state">
+                <mat-icon>star_outline</mat-icon>
+                <p>No fun facts available yet</p>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,116 @@
+<div class="blogs-page">
+    <!-- Header -->
+    <section class="blogs-header gradient-mesh-animated">
+        <div class="header-container">
+            <div class="header-content">
+                <h1 class="page-title">{{ heroContent.title }}</h1>
+                <p class="page-subtitle">{{ heroContent.description }}</p>
+            </div>
+            <div class="header-illustration">
+                <div class="animated-blogs">
+                    <div class="blogs-character">
+                        <img src="/assets/images/blogs-hero.png" alt="Blog Articles" class="character-img">
+                    </div>
+                    <div class="article-icon icon-1">📝</div>
+                    <div class="article-icon icon-2">📖</div>
+                    <div class="article-icon icon-3">💡</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search & Filter -->
+    <section class="filter-section">
+        <div class="section-container">
+            <div class="search-bar">
+                <mat-icon>search</mat-icon>
+                <input type="text" placeholder="Search articles..." [(ngModel)]="searchQuery"
+                    (ngModelChange)="searchQuery.set($event)">
+            </div>
+
+            <div class="tag-filters">
+                <button *ngFor="let tag of allTags().slice(0, 10)" [class.active]="selectedTag() === tag"
+                    (click)="selectTag(tag)" class="tag-chip">
+                    {{ tag }}
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Posts -->
+    <section class="featured-section" *ngIf="!loading() && featuredBlogs().length > 0">
+        <div class="section-container">
+            <h2 class="section-title">Featured Posts</h2>
+
+            <div class="featured-grid">
+                <article *ngFor="let blog of featuredBlogs()" class="featured-card">
+                    <div class="featured-image">
+                        <img [src]="blog.thumbnail" [alt]="blog.title">
+                    </div>
+                    <div class="featured-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">{{ formatDate(blog.publishedAt || blog.createdAt) }}</span>
+                            <span class="blog-read-time">{{ blog.readTime }} min read</span>
+                        </div>
+                        <h3 class="blog-title">{{ blog.title }}</h3>
+                        <p class="blog-excerpt">{{ blog.excerpt }}</p>
+                        <div class="blog-tags">
+                            <span *ngFor="let tag of blog.tags?.slice(0, 3)" class="tag-badge">{{ tag }}</span>
+                        </div>
+                        <a [routerLink]="['/blogs', blog.slug]" class="btn-modern btn-gradient">
+                            <mat-icon>arrow_forward</mat-icon>
+                            Read More
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Posts -->
+    <section class="posts-section">
+        <div class="section-container">
+            <h2 class="section-title">All Posts</h2>
+
+            <!-- Loading State -->
+            <div *ngIf="loading()" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading posts...</p>
+            </div>
+
+            <!-- Posts Grid -->
+            <div *ngIf="!loading() && filteredBlogs().length > 0" class="posts-grid">
+                <article *ngFor="let blog of filteredBlogs(); let i = index" class="post-card"
+                    [style.animation-delay]="(i * 0.1) + 's'">
+                    <div class="post-image">
+                        <img [src]="blog.thumbnail" [alt]="blog.title">
+                    </div>
+                    <div class="post-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">{{ formatDate(blog.publishedAt || blog.createdAt) }}</span>
+                            <span class="blog-read-time">{{ blog.readTime }} min read</span>
+                        </div>
+                        <h3 class="post-title">{{ blog.title }}</h3>
+                        <p class="post-excerpt">{{ blog.excerpt }}</p>
+                        <div class="blog-tags">
+                            <span *ngFor="let tag of blog.tags?.slice(0, 3)" class="tag-badge">{{ tag }}</span>
+                        </div>
+                        <a [routerLink]="['/blogs', blog.slug]" class="read-more-link">
+                            Read More
+                            <mat-icon>arrow_forward</mat-icon>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Empty State -->
+            <div *ngIf="!loading() && filteredBlogs().length === 0" class="empty-state">
+                <mat-icon>article</mat-icon>
+                <p>No blog posts found</p>
+                <button (click)="selectTag('All'); searchQuery.set('')" class="btn-modern btn-outline">
+                    Clear Filters
+                </button>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,126 @@
+<div class="home-page">
+    <!-- Hero Section -->
+    <section class="hero-section gradient-mesh-animated">
+        <div class="hero-container">
+            <!-- Left: Text Content -->
+            <div class="hero-content" *ngIf="profile()">
+                <h1 class="hero-title" #heroTitle>
+                    {{ typedText() }}<span class="typing-cursor" *ngIf="showCursor()"></span>
+                </h1>
+
+                <p class="hero-description">
+                    {{ heroContent.description.replace('{name}', profile().name).replace('{role}', profile().role) }}
+                </p>
+
+                <!-- CTAs -->
+                <div class="hero-actions">
+                    <a routerLink="/projects" class="btn-modern btn-gradient scale-hover glow-blue">
+                        <mat-icon>work</mat-icon>
+                        View Projects
+                    </a>
+                    <a routerLink="/contact" class="btn-modern btn-outline scale-hover">
+                        <mat-icon>email</mat-icon>
+                        Contact Me
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Illustration -->
+            <div class="hero-illustration">
+                <div class="animated-hero">
+                    <!-- Developer Character -->
+                    <div class="hero-character">
+                        <img src="/assets/images/home-hero.png" alt="Developer at Work" class="character-img">
+                    </div>
+
+                    <!-- Floating Tech Icons -->
+                    <div class="tech-icon tech-angular">A</div>
+                    <div class="tech-icon tech-nodejs">N</div>
+                    <div class="tech-icon tech-mongodb">M</div>
+                    <div class="tech-icon tech-typescript">T</div>
+
+                    <!-- Floating Particles -->
+                    <div class="particle particle-1"></div>
+                    <div class="particle particle-2"></div>
+                    <div class="particle particle-3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Preview Section -->
+    <section class="about-preview-section">
+        <div class="section-container">
+            <h2 class="section-title">About Me</h2>
+
+            <div class="about-content" *ngIf="profile()">
+                <p class="about-text">
+                    {{ profile().bio }}
+                </p>
+
+                <div class="about-actions">
+                    <a routerLink="/about" class="btn-modern btn-gradient">
+                        <mat-icon>person</mat-icon>
+                        Learn More About Me
+                    </a>
+                    <a *ngIf="profile().resumeUrl" [href]="profile().resumeUrl" target="_blank"
+                        class="btn-modern btn-outline">
+                        <mat-icon>description</mat-icon>
+                        My Resume
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="featured-projects-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Projects</h2>
+                <a routerLink="/projects" class="view-all-link">
+                    View All Projects
+                    <mat-icon>arrow_forward</mat-icon>
+                </a>
+            </div>
+
+            <!-- Loading State -->
+            <div *ngIf="loading()" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading projects...</p>
+            </div>
+
+            <!-- Projects Grid -->
+            <div *ngIf="!loading() && featuredProjects().length > 0" class="projects-grid">
+                <article *ngFor="let project of featuredProjects()" class="project-card">
+                    <div class="project-image">
+                        <img [src]="project.imageUrl" [alt]="project.title">
+                        <div class="project-overlay">
+                            <a [routerLink]="['/projects', project._id]" class="btn-view">
+                                <mat-icon>visibility</mat-icon>
+                                View Project
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="project-content">
+                        <h3 class="project-title">{{ project.title }}</h3>
+                        <p class="project-description">{{ project.description }}</p>
+
+                        <div class="project-tech">
+                            <span *ngFor="let tech of project.techStack.slice(0, 3)" class="tech-badge">
+                                {{ tech }}
+                            </span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Empty State -->
+            <div *ngIf="!loading() && featuredProjects().length === 0" class="empty-state">
+                <mat-icon>work_outline</mat-icon>
+                <p>No featured projects yet</p>
+            </div>
+        </div>
+    </section>
+</div>

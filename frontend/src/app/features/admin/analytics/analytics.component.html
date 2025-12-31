@@ -1,0 +1,94 @@
+<div class="analytics-container">
+    <div class="header">
+        <h1>Analytics Dashboard</h1>
+        <button mat-raised-button color="primary" (click)="refresh()">
+            <mat-icon>refresh</mat-icon>
+            Refresh
+        </button>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading()" class="loading">
+        <mat-icon>hourglass_empty</mat-icon>
+        <p>Loading analytics...</p>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div *ngIf="!loading()" class="stats-grid">
+        <mat-card class="stat-card">
+            <mat-card-content>
+                <div class="stat-icon">
+                    <mat-icon>analytics</mat-icon>
+                </div>
+                <div class="stat-info">
+                    <h3>Total Activity</h3>
+                    <p class="stat-value">{{ totalLogs() }}</p>
+                    <span class="stat-label">All time</span>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card">
+            <mat-card-content>
+                <div class="stat-icon recent">
+                    <mat-icon>schedule</mat-icon>
+                </div>
+                <div class="stat-info">
+                    <h3>Recent Activity</h3>
+                    <p class="stat-value">{{ recentLogs() }}</p>
+                    <span class="stat-label">Last 24 hours</span>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card" *ngFor="let stat of actionStats().slice(0, 2)">
+            <mat-card-content>
+                <div class="stat-icon action">
+                    <mat-icon>{{ getActionIcon(stat._id) }}</mat-icon>
+                </div>
+                <div class="stat-info">
+                    <h3>{{ stat._id | titlecase }}</h3>
+                    <p class="stat-value">{{ stat.count }}</p>
+                    <span class="stat-label">Actions</span>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <!-- Activity Logs Table -->
+    <mat-card *ngIf="!loading()" class="logs-card">
+        <mat-card-header>
+            <mat-card-title>Recent Activity Logs</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Resource</th>
+                            <th>User</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let log of activityLogs()">
+                            <td>
+                                <span class="action-badge" [class]="getActionColor(log.action)">
+                                    <mat-icon>{{ getActionIcon(log.action) }}</mat-icon>
+                                    {{ log.action | titlecase }}
+                                </span>
+                            </td>
+                            <td>{{ log.resource | titlecase }}</td>
+                            <td>{{ log.userId?.email || 'System' }}</td>
+                            <td>{{ log.createdAt | date:'short' }}</td>
+                        </tr>
+                        <tr *ngIf="activityLogs().length === 0">
+                            <td colspan="4" class="no-data">No activity logs found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

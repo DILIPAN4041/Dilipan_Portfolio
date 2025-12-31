@@ -1,0 +1,70 @@
+﻿<div class="login-container">
+  <div class="login-split">
+    <!-- Left: Illustration -->
+    <div class="login-illustration">
+      <div id="security-animation">
+        <mat-icon style="font-size: 120px; width: 120px; height: 120px; color: white; opacity: 0.5;">lock</mat-icon>
+      </div>
+      <h2>Welcome Back!</h2>
+      <p>Secure access to your portfolio dashboard</p>
+    </div>
+
+    <!-- Right: Form -->
+    <div class="login-form-wrapper">
+      <div class="login-form-card">
+        <h1>Sign In</h1>
+        <p class="login-subtitle">Enter your credentials to continue</p>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMessage()" class="error-message">
+          <mat-icon class="inline align-middle mr-2">error</mat-icon>
+          <span>{{ errorMessage() }}</span>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" class="login-form">
+          <!-- Email/UserID Field -->
+          <div class="input-modern">
+            <mat-icon>person</mat-icon>
+            <input type="text" [(ngModel)]="identifier" name="identifier" placeholder="Email or User ID" required
+              [disabled]="loading()" />
+          </div>
+
+          <!-- Password Field -->
+          <div class="input-modern">
+            <mat-icon>lock</mat-icon>
+            <input [type]="hidePassword() ? 'password' : 'text'" [(ngModel)]="password" name="password"
+              placeholder="Password" required [disabled]="loading()" />
+            <button type="button" (click)="togglePasswordVisibility()" [disabled]="loading()"
+              style="background: none; border: none; cursor: pointer;">
+              <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn-modern btn-gradient btn-full"
+            [disabled]="loading() || !identifier() || !password()">
+            <ng-container *ngIf="loading(); else showLogin">
+              <mat-spinner diameter="20" style="display: inline-block; margin-right: 8px;"></mat-spinner>
+              Signing in...
+            </ng-container>
+            <ng-template #showLogin>
+              <mat-icon>login</mat-icon>
+              Sign In
+            </ng-template>
+          </button>
+        </form>
+
+        <div class="login-footer">
+          <p class="text-sm text-secondary mb-md">
+            Default Password: <code
+              style="background: var(--bg-tertiary); padding: 4px 8px; border-radius: 4px; font-family: monospace;">Admin&#64;1234</code>
+          </p>
+          <a routerLink="/" class="link-gradient">
+            <mat-icon style="font-size: 18px; vertical-align: middle;">home</mat-icon>
+            Back to Portfolio
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="skills-page">
+    <!-- Header Section -->
+    <section class="skills-header gradient-mesh-animated">
+        <div class="header-container">
+            <div class="header-content">
+                <h1 class="page-title">
+                    {{ heroContent.title }}
+                </h1>
+                <p class="page-subtitle">
+                    {{ heroContent.description }}
+                </p>
+            </div>
+            <div class="header-illustration">
+                <div class="animated-skills">
+                    <div class="skills-character">
+                        <img src="/assets/images/skills-hero.png" alt="Developer Skills" class="character-img">
+                    </div>
+                    <div class="orbit-icon orbit-1">A</div>
+                    <div class="orbit-icon orbit-2">R</div>
+                    <div class="orbit-icon orbit-3">N</div>
+                    <div class="orbit-icon orbit-4">M</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Filter -->
+    <section class="filter-section">
+        <div class="section-container">
+            <div class="category-filters">
+                <button *ngFor="let category of categories" [class.active]="activeCategory() === category"
+                    (click)="setCategory(category)" class="filter-btn">
+                    {{ category }}
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Grid -->
+    <section class="skills-section">
+        <div class="section-container">
+            <!-- Loading State -->
+            <div *ngIf="loading()" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading skills...</p>
+            </div>
+
+            <!-- Skills Grid -->
+            <div *ngIf="!loading() && filteredSkills().length > 0" class="skills-grid">
+                <div *ngFor="let skill of filteredSkills(); let i = index" class="skill-card"
+                    [style.animation-delay]="(i * 0.1) + 's'">
+
+                    <!-- Skill Icon -->
+                    <div class="skill-icon-wrapper" [class]="getProficiencyColor(skill.proficiency)">
+                        <mat-icon>{{ getSkillIcon(skill.category) }}</mat-icon>
+                    </div>
+
+                    <!-- Skill Info -->
+                    <div class="skill-info">
+                        <h3 class="skill-name">{{ skill.name }}</h3>
+                        <span class="skill-level">{{ getProficiencyLevel(skill.proficiency) }}</span>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-container">
+                        <div class="progress-bar" [class]="getProficiencyColor(skill.proficiency)"
+                            [style.width]="skill.proficiency + '%'">
+                        </div>
+                    </div>
+
+                    <!-- Percentage -->
+                    <div class="skill-percentage">{{ skill.proficiency }}%</div>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div *ngIf="!loading() && filteredSkills().length === 0" class="empty-state">
+                <mat-icon>code_off</mat-icon>
+                <p>No skills found in this category</p>
+            </div>
+        </div>
+    </section>
+</div>

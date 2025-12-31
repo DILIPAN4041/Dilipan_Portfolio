@@ -1,0 +1,203 @@
+.analytics-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h1 {
+        margin: 0;
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+}
+
+.loading {
+    text-align: center;
+    padding: 4rem;
+    color: var(--text-secondary);
+
+    mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        animation: spin 2s linear infinite;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    mat-card-content {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.5rem !important;
+    }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
+
+        &.recent {
+            background: linear-gradient(135deg, var(--green) 0%, #059669 100%);
+        }
+
+        &.action {
+            background: linear-gradient(135deg, var(--orange) 0%, #d97706 100%);
+        }
+
+        mat-icon {
+            color: white;
+            font-size: 32px;
+            width: 32px;
+            height: 32px;
+        }
+    }
+
+    .stat-info {
+        flex: 1;
+
+        h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .stat-value {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+    }
+}
+
+.logs-card {
+    mat-card-header {
+        margin-bottom: 1rem;
+    }
+
+    mat-card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+}
+
+.table-container {
+    overflow-x: auto;
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+
+        thead {
+            background: var(--bg-secondary);
+
+            th {
+                padding: 1rem;
+                text-align: left;
+                font-weight: 600;
+                color: var(--text-primary);
+                border-bottom: 2px solid var(--border-color);
+            }
+        }
+
+        tbody {
+            tr {
+                border-bottom: 1px solid var(--border-color);
+                transition: background 0.2s;
+
+                &:hover {
+                    background: var(--bg-secondary);
+                }
+            }
+
+            td {
+                padding: 1rem;
+                color: var(--text-secondary);
+            }
+
+            .no-data {
+                text-align: center;
+                padding: 2rem;
+                color: var(--text-tertiary);
+            }
+        }
+    }
+}
+
+.action-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    &.success {
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--green);
+    }
+
+    &.primary {
+        background: rgba(59, 130, 246, 0.1);
+        color: var(--blue);
+    }
+
+    &.warn {
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+    }
+
+    &.accent {
+        background: rgba(245, 158, 11, 0.1);
+        color: var(--orange);
+    }
+
+    mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+    }
+}

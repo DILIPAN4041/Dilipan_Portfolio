@@ -1,0 +1,191 @@
+/* ============================================
+   MATERIAL DESIGN DARK MODE OVERRIDES
+   ============================================ */
+
+/* Material Cards in Dark Mode */
+.dark {
+    mat-card {
+        background-color: var(--bg-secondary) !important;
+        color: var(--text-primary) !important;
+    }
+
+    mat-card-title {
+        color: var(--text-primary) !important;
+    }
+
+    mat-card-subtitle {
+        color: var(--text-secondary) !important;
+    }
+
+    mat-card-content {
+        color: var(--text-primary) !important;
+    }
+
+    /* Material Form Fields */
+    .mat-mdc-form-field {
+        color: var(--text-primary) !important;
+    }
+
+    .mat-mdc-form-field-label,
+    .mdc-floating-label {
+        color: var(--text-secondary) !important;
+    }
+
+    .mat-mdc-input-element {
+        color: var(--text-primary) !important;
+        caret-color: var(--primary) !important;
+    }
+
+    .mat-mdc-form-field-hint {
+        color: var(--text-tertiary) !important;
+    }
+
+    /* Material Buttons */
+    .mat-mdc-button,
+    .mat-mdc-raised-button,
+    .mat-mdc-outlined-button {
+        color: var(--text-primary) !important;
+    }
+
+    /* Material Icons */
+    mat-icon {
+        color: var(--text-secondary) !important;
+    }
+
+    /* Material Tables */
+    .mat-mdc-table {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+    }
+
+    .mat-mdc-header-cell {
+        color: var(--text-primary) !important;
+    }
+
+    .mat-mdc-cell {
+        color: var(--text-secondary) !important;
+    }
+
+    /* Material Dialogs */
+    .mat-mdc-dialog-container {
+        background-color: var(--bg-secondary) !important;
+        color: var(--text-primary) !important;
+    }
+
+    /* Material Snackbar */
+    .mat-mdc-snack-bar-container {
+        background-color: var(--bg-tertiary) !important;
+        color: var(--text-primary) !important;
+    }
+
+    /* Material Select */
+    .mat-mdc-select-value {
+        color: var(--text-primary) !important;
+    }
+
+    .mat-mdc-select-arrow {
+        color: var(--text-secondary) !important;
+    }
+
+    /* Material Checkbox & Radio */
+    .mat-mdc-checkbox-label,
+    .mat-mdc-radio-label {
+        color: var(--text-primary) !important;
+    }
+
+    /* Material Slider */
+    .mat-mdc-slider {
+        color: var(--primary) !important;
+    }
+
+    /* Material Tabs */
+    .mat-mdc-tab-group {
+        background-color: transparent !important;
+    }
+
+    .mat-mdc-tab-header {
+        background-color: var(--bg-secondary) !important;
+        border-bottom: 2px solid var(--border-color) !important;
+    }
+
+    .mat-mdc-tab {
+        color: var(--text-secondary) !important;
+        opacity: 1 !important;
+    }
+
+    .mat-mdc-tab:hover {
+        color: var(--text-primary) !important;
+    }
+
+    .mat-mdc-tab.mdc-tab--active {
+        color: var(--primary) !important;
+    }
+
+    .mat-mdc-tab .mdc-tab__text-label {
+        color: inherit !important;
+    }
+
+    .mat-mdc-tab-body-content {
+        background-color: transparent !important;
+    }
+
+    /* Material Tab Ink Bar */
+    .mat-mdc-tab-header-pagination-chevron,
+    .mat-mdc-tab-header-pagination {
+        border-color: var(--text-secondary) !important;
+    }
+
+    .mdc-tab-indicator__content--underline {
+        border-color: var(--primary) !important;
+    }
+
+    /* Material Expansion Panel */
+    .mat-expansion-panel {
+        background-color: var(--bg-secondary) !important;
+        color: var(--text-primary) !important;
+    }
+
+    .mat-expansion-panel-header-title {
+        color: var(--text-primary) !important;
+    }
+
+    /* Material List */
+    .mat-mdc-list-item {
+        color: var(--text-primary) !important;
+    }
+
+    /* Material Menu */
+    .mat-mdc-menu-panel {
+        background-color: var(--bg-secondary) !important;
+    }
+
+    .mat-mdc-menu-item {
+        color: var(--text-primary) !important;
+    }
+
+    /* Material Tooltip */
+    .mat-mdc-tooltip {
+        background-color: var(--bg-tertiary) !important;
+        color: var(--text-primary) !important;
+    }
+
+    /* Material Progress Bar & Spinner */
+    .mat-mdc-progress-bar,
+    .mat-mdc-progress-spinner {
+        color: var(--primary) !important;
+    }
+
+    /* Material Divider */
+    .mat-divider {
+        border-top-color: var(--border-color) !important;
+    }
+
+    /* Material Slide Toggle */
+    .mat-mdc-slide-toggle {
+        color: var(--text-primary) !important;
+    }
+
+    .mat-mdc-slide-toggle-label {
+        color: var(--text-primary) !important;
+    }
+}

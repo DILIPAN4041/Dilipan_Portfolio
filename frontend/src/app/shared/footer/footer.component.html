@@ -1,0 +1,67 @@
+<footer class="footer">
+    <!-- Animated Decorations -->
+    <div class="footer-decorations">
+        <div class="code-symbol symbol-1">&#123; &#125;</div>
+        <div class="code-symbol symbol-2">&lt; / &gt;</div>
+        <div class="code-symbol symbol-3">[ ]</div>
+        <div class="tech-icon icon-1">⚡</div>
+        <div class="tech-icon icon-2">🎨</div>
+        <div class="tech-icon icon-3">🔧</div>
+    </div>
+
+    <div class="footer-container">
+        <!-- Logo & Description -->
+        <div class="footer-section">
+            <div class="footer-logo">
+                <div class="logo-icon">
+                    <mat-icon>code</mat-icon>
+                </div>
+                <span class="logo-text">Dilipan's Portfolio</span>
+            </div>
+            <p class="footer-description">
+                Full-stack developer specializing in Angular, Node.js, and modern web technologies.
+            </p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="footer-section">
+            <h3 class="footer-title">Navigation</h3>
+            <ul class="footer-links">
+                <li *ngFor="let link of navigationLinks">
+                    <a [routerLink]="link.path">{{ link.label }}</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Connect -->
+        <div class="footer-section">
+            <h3 class="footer-title">Connect</h3>
+            <ul class="footer-links">
+                <li><a routerLink="/contact">Contact Me</a></li>
+                <li><a href="mailto:dilipan@example.com">Email</a></li>
+                <li><a routerLink="/blogs">Read My Blog</a></li>
+            </ul>
+        </div>
+
+        <!-- Follow Me -->
+        <div class="footer-section">
+            <h3 class="footer-title">Follow Me</h3>
+            <div class="social-links">
+                <a *ngFor="let social of socialLinks" [href]="social.url" target="_blank" rel="noopener noreferrer"
+                    [attr.aria-label]="social.label" class="social-link">
+                    <mat-icon>{{ social.icon }}</mat-icon>
+                </a>
+            </div>
+
+            <!-- Copyright & Credits -->
+            <div class="footer-credits">
+                <p class="footer-copyright">
+                    © {{ currentYear }} <strong>Dilipan</strong>. All rights reserved.
+                </p>
+                <p class="footer-made-with">
+                    Created with <span class="heart">❤️</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>

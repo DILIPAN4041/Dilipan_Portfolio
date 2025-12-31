@@ -1,0 +1,74 @@
+<div class="experience-page">
+    <!-- Header -->
+    <section class="experience-header gradient-mesh-animated">
+        <div class="header-container">
+            <div class="header-content">
+                <h1 class="page-title">{{ heroContent.title }}</h1>
+                <p class="page-subtitle">{{ heroContent.description }}</p>
+            </div>
+            <div class="header-illustration">
+                <div class="animated-experience">
+                    <div class="experience-character">
+                        <img src="/assets/images/experience-hero.png" alt="Work Experience" class="character-img">
+                    </div>
+                    <div class="milestone-badge badge-1">🏆</div>
+                    <div class="milestone-badge badge-2">⭐</div>
+                    <div class="milestone-badge badge-3">💼</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="timeline-section">
+        <div class="section-container">
+            <div *ngIf="!loading() && experiences().length > 0" class="timeline">
+                <div *ngFor="let exp of experiences(); let i = index" class="timeline-item"
+                    [style.animation-delay]="(i * 0.2) + 's'">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="exp-header">
+                            <div class="exp-icon">
+                                <mat-icon>work</mat-icon>
+                            </div>
+                            <div class="exp-info">
+                                <h3 class="exp-role">{{ exp.role }}</h3>
+                                <p class="exp-company">{{ exp.company }}</p>
+                                <p class="exp-period">
+                                    {{ formatDate(exp.startDate) }} – {{ exp.current ? 'Present' :
+                                    formatDate(exp.endDate) }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <p class="exp-description">{{ exp.description }}</p>
+
+                        <button *ngIf="exp.responsibilities && exp.responsibilities.length > 0"
+                            (click)="toggleExpand(i)" class="expand-btn">
+                            <mat-icon>{{ expandedIndex() === i ? 'expand_less' : 'expand_more' }}</mat-icon>
+                            {{ expandedIndex() === i ? 'Hide' : 'Show' }} Key Responsibilities
+                        </button>
+
+                        <div *ngIf="expandedIndex() === i" class="responsibilities">
+                            <ul>
+                                <li *ngFor="let resp of exp.responsibilities">{{ resp }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div *ngIf="loading()" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading experience...</p>
+            </div>
+
+            <!-- Empty State -->
+            <div *ngIf="!loading() && experiences().length === 0" class="empty-state">
+                <mat-icon>work_outline</mat-icon>
+                <p>No experience data available</p>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,156 @@
+/* Animated Background Wrapper */
+.animated-bg-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* Floating Particles - VERY VISIBLE */
+.bg-particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: floatParticle 20s ease-in-out infinite;
+}
+
+.particle-1 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.particle-2 {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
+    top: 60%;
+    right: 15%;
+    animation-delay: 5s;
+}
+
+.particle-3 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.2) 0%, transparent 70%);
+    bottom: 20%;
+    left: 50%;
+    animation-delay: 10s;
+}
+
+/* Large Floating Orbs - VERY VISIBLE */
+.bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+}
+
+.orb-1 {
+    width: 500px;
+    height: 500px;
+    background: rgba(59, 130, 246, 0.15);
+    top: -100px;
+    right: -100px;
+    animation: floatOrb1 15s ease-in-out infinite;
+}
+
+.orb-2 {
+    width: 600px;
+    height: 600px;
+    background: rgba(139, 92, 246, 0.12);
+    bottom: -150px;
+    left: -150px;
+    animation: floatOrb2 20s ease-in-out infinite;
+}
+
+/* Animated Grid */
+.bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridSlide 30s linear infinite;
+}
+
+/* App Container */
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+.main-content {
+    flex: 1;
+    width: 100%;
+}
+
+/* Animations */
+@keyframes floatParticle {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(30px, -30px) scale(1.1);
+    }
+
+    50% {
+        transform: translate(-20px, 40px) scale(0.9);
+    }
+
+    75% {
+        transform: translate(40px, -20px) scale(1.05);
+    }
+}
+
+@keyframes floatOrb1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    33% {
+        transform: translate(50px, -50px);
+    }
+
+    66% {
+        transform: translate(-30px, 30px);
+    }
+}
+
+@keyframes floatOrb2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    33% {
+        transform: translate(-60px, 40px);
+    }
+
+    66% {
+        transform: translate(40px, -40px);
+    }
+}
+
+@keyframes gridSlide {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 50px 50px;
+    }
+}

@@ -1,0 +1,76 @@
+<div class="messages-container">
+    <div class="messages-header">
+        <h1>Contact Messages</h1>
+        <div class="header-actions">
+            <span class="unread-badge" *ngIf="unreadCount() > 0">
+                {{ unreadCount() }} unread
+            </span>
+            <button class="btn-icon" (click)="loadMessages()" [disabled]="loading()">
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="messages-content">
+        <div *ngIf="loading()" class="loading-state">
+            <mat-spinner diameter="40"></mat-spinner>
+            <p>Loading messages...</p>
+        </div>
+
+        <div *ngIf="!loading() && messages().length === 0" class="empty-state">
+            <mat-icon>inbox</mat-icon>
+            <h3>No messages yet</h3>
+            <p>Contact form submissions will appear here</p>
+        </div>
+
+        <div *ngIf="!loading() && messages().length > 0" class="messages-list">
+            <div *ngFor="let message of messages()" class="message-card" [class.unread]="!message.isRead">
+                <div class="message-header">
+                    <div class="message-info">
+                        <button class="read-indicator" (click)="toggleRead(message)"
+                            [title]="message.isRead ? 'Mark as unread' : 'Mark as read'">
+                            <mat-icon>{{ message.isRead ? 'radio_button_unchecked' : 'radio_button_checked'
+                                }}</mat-icon>
+                        </button>
+                        <div class="sender-info">
+                            <h3>{{ message.name }}</h3>
+                            <span class="timestamp">{{ getTimeAgo(message.createdAt) }}</span>
+                        </div>
+                    </div>
+                    <button class="btn-delete" (click)="deleteMessage(message._id)"
+                        [disabled]="deleting() === message._id">
+                        <mat-spinner *ngIf="deleting() === message._id" diameter="20"></mat-spinner>
+                        <mat-icon *ngIf="deleting() !== message._id">delete</mat-icon>
+                    </button>
+                </div>
+
+                <div class="message-body" (click)="toggleExpansion(message)" [class.expanded]="message.expanded">
+                    <!-- Sender Details (Visible when expanded) -->
+                    <div class="sender-details" *ngIf="message.expanded">
+                        <div class="detail-item">
+                            <mat-icon>email</mat-icon>
+                            <a [href]="'mailto:' + message.email" (click)="$event.stopPropagation()">{{ message.email
+                                }}</a>
+                        </div>
+                        <div class="detail-item">
+                            <mat-icon>phone</mat-icon>
+                            <span *ngIf="!message.phone" class="text-muted">Not provided</span>
+                            <a *ngIf="message.phone" [href]="'tel:' + message.phone"
+                                (click)="$event.stopPropagation()">{{ message.phone }}</a>
+                        </div>
+                    </div>
+
+                    <div class="message-content">
+                        <p *ngIf="!message.expanded">{{ getMessagePreview(message.message) }}</p>
+                        <p *ngIf="message.expanded" class="full-message">{{ message.message }}</p>
+                    </div>
+
+                    <div class="expand-hint">
+                        <mat-icon>{{ message.expanded ? 'expand_less' : 'expand_more' }}</mat-icon>
+                        <span>{{ message.expanded ? 'Show Less' : 'Show More' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

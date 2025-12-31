@@ -1,0 +1,110 @@
+<div class="dashboard-page">
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-content">
+            <div>
+                <h1 class="dashboard-title">Admin Dashboard</h1>
+                <p class="dashboard-subtitle" *ngIf="currentUser()">
+                    Welcome back, {{ currentUser().userId }}!
+                </p>
+            </div>
+            <div class="header-actions">
+                <a routerLink="/" class="btn-modern btn-outline">
+                    <mat-icon>home</mat-icon>
+                    View Site
+                </a>
+                <button (click)="logout()" class="btn-modern btn-gradient">
+                    <mat-icon>logout</mat-icon>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Statistics -->
+    <section class="statistics-section">
+        <div class="section-container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon projects">
+                        <mat-icon>work</mat-icon>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">{{ statistics().projects }}</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon skills">
+                        <mat-icon>code</mat-icon>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">{{ statistics().skills }}</div>
+                        <div class="stat-label">Skills</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blogs">
+                        <mat-icon>article</mat-icon>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">{{ statistics().blogs }}</div>
+                        <div class="stat-label">Blog Posts</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon experience">
+                        <mat-icon>business_center</mat-icon>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">{{ statistics().experience }}</div>
+                        <div class="stat-label">Experiences</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Management -->
+    <section class="content-section">
+        <div class="section-container">
+            <h2 class="section-title">Content Management</h2>
+
+            <div class="content-grid">
+                <div *ngFor="let section of contentSections; let i = index" class="content-card"
+                    [style.animation-delay]="(i * 0.05) + 's'">
+                    <div class="content-icon">
+                        <mat-icon>{{ section.icon }}</mat-icon>
+                    </div>
+                    <div class="content-info">
+                        <h3 class="content-title">{{ section.title }}</h3>
+                        <p class="content-description">{{ section.description }}</p>
+                    </div>
+                    <div class="content-actions">
+                        <a [routerLink]="section.route" class="action-btn edit">
+                            <mat-icon>edit</mat-icon>
+                            Manage
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Info -->
+    <section class="info-section">
+        <div class="section-container">
+            <div class="info-card">
+                <mat-icon>info</mat-icon>
+                <div class="info-content">
+                    <h3>Portfolio Status</h3>
+                    <p>Your portfolio is live and accessible to visitors. All content changes are reflected immediately.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

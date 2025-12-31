@@ -1,0 +1,124 @@
+<div class="contact-page" *ngIf="!loading()">
+    <!-- Header Section -->
+    <section class="contact-header gradient-mesh-animated">
+        <div class="header-container">
+            <div class="header-content">
+                <h1 class="page-title">{{ heroContent.title }}</h1>
+                <p class="page-subtitle">{{ heroContent.description }}</p>
+            </div>
+            <div class="header-illustration">
+                <div class="animated-contact">
+                    <div class="contact-character">
+                        <img src="/assets/images/contact-hero.png" alt="Contact Me" class="character-img">
+                    </div>
+                    <div class="comm-icon icon-email">📧</div>
+                    <div class="comm-icon icon-phone">📞</div>
+                    <div class="comm-icon icon-linkedin">in</div>
+                    <div class="comm-icon icon-github">gh</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="contact-content">
+        <div class="content-container">
+            <!-- Contact Form -->
+            <div class="form-section">
+                <h2 class="section-title">Send Me a Message</h2>
+
+                <!-- Success Message -->
+                <div *ngIf="submitted()" class="success-message">
+                    <mat-icon>check_circle</mat-icon>
+                    <p>Thank you! Your message has been sent successfully.</p>
+                </div>
+
+                <form (ngSubmit)="onSubmit()" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <div class="input-wrapper">
+                            <mat-icon>person</mat-icon>
+                            <input type="text" id="name" [(ngModel)]="formData.name" name="name" placeholder="John Doe"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <div class="input-wrapper">
+                            <mat-icon>email</mat-icon>
+                            <input type="email" id="email" [(ngModel)]="formData.email" name="email"
+                                placeholder="john.doe@example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Your Phone (Optional)</label>
+                        <div class="input-wrapper">
+                            <mat-icon>phone</mat-icon>
+                            <input type="tel" id="phone" [(ngModel)]="formData.phone" name="phone"
+                                placeholder="+1 234 567 890">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <div class="input-wrapper">
+                            <mat-icon>message</mat-icon>
+                            <textarea id="message" [(ngModel)]="formData.message" name="message" rows="6"
+                                placeholder="Tell me about your project or inquiry..." required></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-modern btn-gradient btn-full" [disabled]="submitting()">
+                        <mat-icon *ngIf="!submitting()">send</mat-icon>
+                        <span *ngIf="!submitting()">Send Message</span>
+                        <span *ngIf="submitting()">Sending...</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="info-section">
+                <h2 class="section-title">Find Me Elsewhere</h2>
+
+                <!-- Social Media -->
+                <div class="social-section">
+                    <h3 class="subsection-title">Social Media</h3>
+                    <div class="social-links">
+                        <a *ngFor="let social of socialLinks" [href]="social.url" target="_blank"
+                            rel="noopener noreferrer" class="social-link">
+                            <mat-icon>{{ social.icon }}</mat-icon>
+                            <span>{{ social.label }}</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Direct Contact -->
+                <div class="direct-contact" *ngIf="contact()">
+                    <h3 class="subsection-title">Direct Contact</h3>
+                    <div class="contact-items">
+                        <a *ngIf="contact().email" [href]="'mailto:' + contact().email" class="contact-item">
+                            <mat-icon>email</mat-icon>
+                            <span>{{ contact().email }}</span>
+                        </a>
+                        <a *ngIf="contact().phone" [href]="'tel:' + contact().phone" class="contact-item">
+                            <mat-icon>phone</mat-icon>
+                            <span>{{ contact().phone }}</span>
+                        </a>
+                        <div *ngIf="contact().location" class="contact-item">
+                            <mat-icon>location_on</mat-icon>
+                            <span>{{ contact().location }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Loading State -->
+<div *ngIf="loading()" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+</div>

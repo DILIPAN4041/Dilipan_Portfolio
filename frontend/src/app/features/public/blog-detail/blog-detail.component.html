@@ -1,0 +1,89 @@
+<div class="blog-detail-page" *ngIf="!loading() && blog()">
+    <!-- Header -->
+    <header class="blog-header">
+        <div class="header-container">
+            <a routerLink="/blogs" class="back-link">
+                <mat-icon>arrow_back</mat-icon>
+                Back to Blog
+            </a>
+
+            <h1 class="blog-title">{{ blog().title }}</h1>
+
+            <div class="blog-meta">
+                <div class="meta-item">
+                    <mat-icon>person</mat-icon>
+                    <span>{{ blog().author }}</span>
+                </div>
+                <div class="meta-item">
+                    <mat-icon>calendar_today</mat-icon>
+                    <span>{{ formatDate(blog().publishedAt || blog().createdAt) }}</span>
+                </div>
+                <div class="meta-item">
+                    <mat-icon>schedule</mat-icon>
+                    <span>{{ blog().readTime }} min read</span>
+                </div>
+                <div class="meta-item">
+                    <mat-icon>visibility</mat-icon>
+                    <span>{{ blog().views }} views</span>
+                </div>
+            </div>
+
+            <div class="blog-tags">
+                <span *ngFor="let tag of blog().tags" class="tag-badge">{{ tag }}</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Featured Image -->
+    <section class="featured-image" *ngIf="blog().thumbnail">
+        <div class="image-container">
+            <img [src]="blog().thumbnail" [alt]="blog().title">
+        </div>
+    </section>
+
+    <!-- Content -->
+    <article class="blog-content">
+        <div class="content-container">
+            <div class="blog-body" [innerHTML]="blog().content"></div>
+        </div>
+    </article>
+
+    <!-- Related Posts -->
+    <section class="related-section" *ngIf="relatedBlogs().length > 0">
+        <div class="section-container">
+            <h2 class="section-title">Related Posts</h2>
+
+            <div class="related-grid">
+                <article *ngFor="let relatedBlog of relatedBlogs()" class="related-card">
+                    <div class="related-image">
+                        <img [src]="relatedBlog.thumbnail" [alt]="relatedBlog.title">
+                    </div>
+                    <div class="related-content">
+                        <h3 class="related-title">{{ relatedBlog.title }}</h3>
+                        <p class="related-excerpt">{{ relatedBlog.excerpt }}</p>
+                        <a [routerLink]="['/blogs', relatedBlog.slug]" class="read-more-link">
+                            Read More
+                            <mat-icon>arrow_forward</mat-icon>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Loading State -->
+<div *ngIf="loading()" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading post...</p>
+</div>
+
+<!-- Not Found -->
+<div *ngIf="!loading() && !blog()" class="empty-state">
+    <mat-icon>article</mat-icon>
+    <p>Blog post not found</p>
+    <a routerLink="/blogs" class="btn-modern btn-gradient">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Blog
+    </a>
+</div>
