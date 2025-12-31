@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: '/api'  // Will be set during deployment
+    apiUrl: 'https://dilipan-portfolio-api.onrender.com/api'
 };
